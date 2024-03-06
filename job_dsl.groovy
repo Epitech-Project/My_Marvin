@@ -1,9 +1,9 @@
 folder('Tools')
 freeStyleJob('Tools/clone-repository') {
     // Clean the workspace before running the job
-    // wrappers {
-    //     prebuildCleanup()
-    // }
+    wrappers {
+        preBuildCleanup()
+    }
     // Define parameters
     parameters {
         stringParam('GIT_REPOSITORY_URL', '', 'Git URL of the repository to clone')
@@ -13,4 +13,3 @@ freeStyleJob('Tools/clone-repository') {
         shell('git clone ${GIT_REPOSITORY_URL}')
     }
 }
-
