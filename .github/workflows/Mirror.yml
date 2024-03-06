@@ -17,23 +17,21 @@ jobs:
     container: epitechcontent/epitest-docker
     steps:
       - uses: actions/checkout@v4
-      - name : check_presence_of_pushed_FILES
+      - name: check_presence_of_pushed_FILES
         run: |
-          if [ -z "$FILES" ]
-          then
+          if [ -z "$FILES" ]; then
             echo "No files to check"
             exit 0
           fi
-          for files in $FILES; do
-            if [ -f $files ]
-            then
-              echo "File $files is pushed! GOOD!!!"
-              exit 0
+          for file in $FILES; do
+            if [ -f $file ]; then
+              echo "File $file is pushed! GOOD!!!"
             else
-              echo "File $files is not pushed! BAD!!!"
+              echo "File $file is not pushed! BAD!!!"
               exit 1
             fi
           done
+
 
   push_to_mirror:
     if: ${{ github.event_name == 'push' }}
