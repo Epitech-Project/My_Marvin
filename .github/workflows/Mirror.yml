@@ -1,0 +1,49 @@
+name: Mirroring
+
+on:
+  push:
+    branches-ignore:
+    - "ga-ignore-*"
+  pull_request:
+    branches-ignore:
+    - "ga-ignore-*"
+
+env:
+  FILES: "my_marvin.yml,job_dsl.groovy"
+
+jobs:
+  check_requiered_files:
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker
+    steps:
+      - uses: actions/checkout@v4
+      - name : check_presence_of_pushed_FILES
+        run: |
+          if [ -z "$FILES" ]
+          then
+            echo "No files to check"
+            exit 0
+          fi
+          for files in $FILES; do
+            if [ -f $files ]
+            then
+              echo "File $files is pushed! GOOD!!!"
+              exit 0
+            else
+              echo "File $files is not pushed! BAD!!!"
+              exit 1
+            fi
+          done
+
+  push_to_mirror:
+    if: ${{ github.event_name == 'push' }}
+    needs: [check_requiered_files]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          target_repo_url: ${{ secrets.MIRROR_URL }}
+          ssh_private_key: ${{ secrets.GIT_SSH_PRIVATE_KEY }}
