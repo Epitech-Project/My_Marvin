@@ -19,11 +19,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: check_presence_of_pushed_FILES
         run: |
-          if [ -f "$FILES" ]; then
-            echo "No files to check"
-            exit 0
-          fi
-          for file in $FILES; do
+          IFS=',' read -ra ADDR <<< "$FILES"
+            for file in "${ADDR[@]}"; do
             if [ -f $file ]; then
               echo "File $file is pushed! GOOD!!!"
             else
