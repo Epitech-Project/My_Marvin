@@ -8,19 +8,36 @@ freeStyleJob('Tools/SEED') {
     }
     steps {
         dsl {
-            text {
+            text (
                 '''
-                freeStyleJob('${DISPLAY_NAME}') {
-                wrappers {
-                    prebuildCleanup()
+                freeStyleJob("\${DISPLAY_NAME}") {
+                    wrappers {
+                        preBuildCleanup()
+                    }
+                    properties {
+                        githubProjectUrl("\${GITHUB_NAME}")
+                    }
+                    scm {
+                        triggers {
+                            cron('* * * * *')
+                        }
+                        git {
+                            remote {
+                                url("\${GITHUB_NAME}")
+                            }
+                            branch("*")
+                        }
+                    }
+
+                    steps {
+                        shell('make fclean')
+                        shell('make')
+                        shell('make tests_run')
+                        shell('make clean')
+                    }
                 }
-                steps {
-                    shell('make fclean')
-                    shell('make')
-                    shell('make tests_run')
-                    shell('make clean')
-                }'''
-            }
+                '''
+            )
         }
     }
 }
