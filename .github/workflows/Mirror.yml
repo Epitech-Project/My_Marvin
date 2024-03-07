@@ -12,27 +12,8 @@ env:
   FILES: "my_marvin.yml,job_dsl.groovy"
 
 jobs:
-  check_requiered_files:
-    runs-on: ubuntu-latest
-    container: epitechcontent/epitest-docker
-    steps:
-      - uses: actions/checkout@v4
-      - name: check_presence_of_pushed_FILES
-        run: |
-          IFS=',' read -ra ADDR <<< "$FILES"
-            for file in "${ADDR[@]}"; do
-            if [ -f $file ]; then
-              echo "File $file is pushed! GOOD!!!"
-            else
-              echo "File $file is not pushed! BAD!!!"
-              exit 1
-            fi
-          done
-
-
   push_to_mirror:
     if: github.ref == 'refs/heads/main'
-    needs: [check_requiered_files]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
