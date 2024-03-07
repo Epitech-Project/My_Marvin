@@ -1,4 +1,6 @@
-folder('Tools')
+folder('Tools') {
+    description('Folder for miscellaneous tools.')
+}
 freeStyleJob('Tools/SEED') {
     parameters {
         stringParam('GITHUB_NAME', '', 'GitHub repository owner/repo_name (e.g.: "EpitechIT31000/chocolatine")')
