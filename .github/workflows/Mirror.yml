@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: check_presence_of_pushed_FILES
         run: |
-          if [ -z "$FILES" ]; then
+          if [ -f "$FILES" ]; then
             echo "No files to check"
             exit 0
           fi
