@@ -34,7 +34,7 @@ jobs:
 
 
   push_to_mirror:
-    if: ${{ github.event_name == 'push' }}
+    if: github.ref == 'refs/heads/main'
     needs: [check_requiered_files]
     runs-on: ubuntu-latest
     steps:
