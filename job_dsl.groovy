@@ -1,4 +1,6 @@
-folder('Tools')
+folder('Tools') {
+    description('Folder for miscellaneous tools.')
+}
 freeStyleJob('Tools/clone-repository') {
     // Clean the workspace before running the job
     wrappers {
@@ -11,5 +13,46 @@ freeStyleJob('Tools/clone-repository') {
     // Clone the repository
     steps {
         shell('git clone ${GIT_REPOSITORY_URL}')
+    }
+}
+freeStyleJob('Tools/SEED') {
+    // Define parameters
+    parameters {
+        stringParam('GITHUB_NAME', '', 'GitHub repository owner/repo_name (e.g.: "EpitechIT31000/chocolatine")')
+        stringParam('DISPLAY_NAME', '', 'Display name of the job')
+    }
+    steps {
+        // Create a new job using the Job DSL plugin
+        dsl {
+            text (
+                '''
+                freeStyleJob("\${DISPLAY_NAME}") {
+                    wrappers {
+                        preBuildCleanup()
+                    }
+                    properties {
+                        githubProjectUrl("\${GITHUB_NAME}")
+                    }
+                    scm {
+                        triggers {
+                            cron('* * * * *')
+                        }
+                        git {
+                            remote {
+                                url("\${GITHUB_NAME}")
+                            }
+                            branch("*")
+                        }
+                    }
+                    steps {
+                        shell('make fclean')
+                        shell('make')
+                        shell('make tests_run')
+                        shell('make clean')
+                    }
+                }
+                '''
+            )
+        }
     }
 }
