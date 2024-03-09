@@ -31,7 +31,7 @@ freeStyleJob('Tools/SEED') {
                         preBuildCleanup()
                     }
                     properties {
-                        githubProjectUrl("\${GITHUB_NAME}")
+                        githubProjectUrl("https://github.com/\${GITHUB_NAME}")
                     }
                     scm {
                         triggers {
@@ -39,7 +39,7 @@ freeStyleJob('Tools/SEED') {
                         }
                         git {
                             remote {
-                                url("\${GITHUB_NAME}")
+                                url("https://github.com/\${GITHUB_NAME}")
                             }
                             branch("*")
                         }
