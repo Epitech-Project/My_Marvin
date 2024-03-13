@@ -1,10 +1,9 @@
 jenkins:
-jenkins:
   securityRealm:
     local:
       allowsSignup: false
       users:
-        - name: Hugoee
+        - name: Hugo
           id: chocolateen
           password: "$(USER_CHOCOLATEEN_PASSWORD)"
         - name: Garance
