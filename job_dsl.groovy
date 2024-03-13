@@ -33,7 +33,7 @@ freeStyleJob('Tools/SEED') {
                     // github properties pointing to the repository and get the repository name
                     scm {
                         triggers {
-                            cron('* * * * *')
+                            scm('* * * * *')
                         }
                         github("\${GITHUB_NAME}")
                     }
