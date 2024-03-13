@@ -30,19 +30,12 @@ freeStyleJob('Tools/SEED') {
                     wrappers {
                         preBuildCleanup()
                     }
-                    properties {
-                        githubProjectUrl("https://github.com/\${GITHUB_NAME}")
-                    }
+                    // github properties pointing to the repository and get the repository name
                     scm {
                         triggers {
                             cron('* * * * *')
                         }
-                        git {
-                            remote {
-                                url("https://github.com/\${GITHUB_NAME}")
-                            }
-                            branch("*")
-                        }
+                        github("\${GITHUB_NAME}")
                     }
                     steps {
                         shell('make fclean')
