@@ -1,4 +1,19 @@
 jenkins:
-
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - name: Hugo
+          id: chocolateen
+          password: "$(USER_CHOCOLATEEN_PASSWORD)"
+        - name: Garance
+          id: vaugie_g
+          password: "$(USER_VAUGIE_G_PASSWORD)"
+        - name: Jeremy
+          id: i_dont_know
+          password: "$(USER_I_DONT_KNOW_PASSWORD)"
+        - Name: Nassim
+          id: nasso
+          password: "$(USER_NASSO_PASSWORD)"
 jobs:
   - file: /var/jenkins_home/casc_configs/job_dsl.groovy
