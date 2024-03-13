@@ -19,7 +19,7 @@ freeStyleJob('Tools/SEED') {
     // Define parameters
     parameters {
         stringParam('GITHUB_NAME', '', 'GitHub repository owner/repo_name (e.g.: "EpitechIT31000/chocolatine")')
-        stringParam('DISPLAY_NAME', '', 'Display name of the job')
+        stringParam('DISPLAY_NAME', '', 'Display name for the job')
     }
     steps {
         // Create a new job using the Job DSL plugin
