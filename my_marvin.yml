@@ -13,7 +13,7 @@ jenkins:
         - name: Jeremy
           id: i_dont_know
           password: "${USER_I_DONT_KNOW_PASSWORD}"
-        - Name: Nassim
+        - name: Nassim
           id: nasso
           password: "${USER_NASSO_PASSWORD}"
   authorizationStrategy:
